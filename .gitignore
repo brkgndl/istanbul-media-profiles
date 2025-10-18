@@ -1,0 +1,14 @@
+# Python'un derlenmiş dosyaları ve önbellekleri
+__pycache__/
+*.pyc
+
+# Jupyter Notebook yedekleri
+.ipynb_checkpoints/
+
+# Sanal ortam klasörleri
+venv/
+.venv/
+
+# Mac/Windows sistem dosyaları
+.DS_Store
+Thumbs.db
