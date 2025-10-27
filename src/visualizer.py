@@ -98,3 +98,56 @@ def radar_grafigini_ciz(kume_profilleri):
     
     # Streamlit için figürü döndürelim
     return fig
+
+#Kümelerin SES Skoru Karşılaştırma Box Plot
+def ses_kume_karsilastirma_ciz(birlesik_df):
+ 
+    ses_kolonu = "Ortalama SES skoru Average SES score"
+    
+    # Gerekli sütun kontrolleri
+    if 'Kume' not in birlesik_df.columns or ses_kolonu not in birlesik_df.columns:
+        print(f"Gerekli sütunlar ('Kume' veya '{ses_kolonu}') bulunamadığı için SES karşılaştırma grafiği çizilemedi.")
+        return
+
+    df_plot = birlesik_df.dropna(subset=[ses_kolonu, 'Kume']).copy()
+    
+    if df_plot.empty:
+        print("Grafik çizmek için yeterli SES verisi veya küme bilgisi bulunamadı.")
+        return
+        
+    #Kümelerin özel isimlerini verelim
+    kume_isimleri = {
+        0: 'Geleneksel Medyanın Kalesi',
+        1: 'Sakin Tüketiciler',
+        2: 'Yüksek Erişimli Tüketiciler'
+    }
+    
+    df_plot['Kume'] = df_plot['Kume'].astype('category')
+    df_plot['Kume'] = df_plot['Kume'].cat.rename_categories(kume_isimleri)
+
+
+    print("\nKümelerin SES Skoru Karşılaştırma Grafiği oluşturuluyor...")
+    # Grafiği biraz genişletelim ki isimler sığsın
+    plt.figure(figsize=(12, 8)) 
+    
+    # Seaborn kullanarak Box Plot çizimi
+    # x ekseninde artık yeni isimler kullanılacak
+    sns.boxplot(x='Kume', y=ses_kolonu, data=df_plot, palette='viridis')
+    
+    plt.title('Medya Kümelerine Göre Sosyoekonomik Statü (SES) Dağılımı', fontsize=16)
+    plt.xlabel('Medya Tüketim Kümesi', fontsize=12)
+    plt.ylabel('Ortalama SES Skoru', fontsize=12)
+    
+    # X ekseni etiketlerini döndürelim (isimler uzun olduğu için)
+    plt.xticks(rotation=45, ha='right') 
+    
+    # Kümelerin ortalama SES skorlarını da terminale de yazdıralım
+    kume_ses_ortalamalari = df_plot.groupby('Kume')[ses_kolonu].mean()
+    print("Kümelerin Ortalama SES Skorları:")
+    
+    # İsimlendirilmiş ortalamaları yazdır
+    for kume, ortalama in kume_ses_ortalamalari.items():
+        print(f"  {kume}: {ortalama:.2f}")
+
+    plt.tight_layout() 
+    plt.show()
