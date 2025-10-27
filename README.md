@@ -2,7 +2,7 @@
 
 Bu proje, İstanbul'un 39 ilçesinin medya tüketim alışkanlıklarını analiz eden ve ilçeleri 3 farklı medya profiline ayıran bir veri bilimi vaka çalışmasıdır. Proje, ham verinin işlenmesinden makine öğrenmesi modeline ve interaktif bir Streamlit uygulamasına kadar tüm adımları kapsamaktadır.
 
-Projenin tüm hikayesi, metodolojisi ve derinlemesine yorumları **[Medium'da yayınlanacak vaka çalışmasında]** detaylıca anlatılacaktır.
+Projenin tüm hikayesini Medium yazımdan okuyabilirsiniz : https://bit.ly/istanbul-media-medium
 
 
 ## 🎯 Ana Bulgular: İstanbul'un 3 Medya Profili
